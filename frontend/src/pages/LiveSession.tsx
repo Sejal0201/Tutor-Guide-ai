@@ -361,7 +361,7 @@ export default function LiveSession() {
                 onClick={() =>
                   sessionId &&
                   window.open(
-                    `http://127.0.0.1:8000/export/report/${sessionId}`,
+                    `${API_URL}/export/report/${sessionId}`,
                   )
                 }
                 className="px-5 py-3 rounded-2xl border border-slate-200 hover:bg-slate-50 transition"

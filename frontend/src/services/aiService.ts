@@ -1,5 +1,6 @@
-const API_URL = "http://127.0.0.1:8000";
-
+// const API_URL = "http://127.0.0.1:8000";
+const API_URL =
+  "https://sej0204-tutorguide-ai-backend.hf.space";
 export const generateHint = async (transcript: string) => {
   const response = await fetch(`${API_URL}/ai/hint`, {
     method: "POST",

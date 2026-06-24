@@ -281,7 +281,7 @@ export default function Reports() {
                 <button
                   onClick={() =>
                     window.open(
-                      `http://127.0.0.1:8000/export/report/${selectedSession.session.id}`,
+                      `${API_URL}/export/report/${selectedSession.session.id}`,
                     )
                   }
                   className="
