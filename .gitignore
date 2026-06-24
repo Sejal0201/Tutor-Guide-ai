@@ -1,0 +1,28 @@
+# Node Modules
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Python
+venv/
+backend/venv/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# Database
+*.db
+
+# Uploads
+uploads/
+backend/uploads/
+*.mp4
+
+# PDFs
+*.pdf
+
+# Build
+dist/
+build/
