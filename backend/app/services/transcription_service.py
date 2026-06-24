@@ -3,7 +3,7 @@ import shutil
 
 print("FFMPEG PATH:", shutil.which("ffmpeg"))
 
-model = whisper.load_model("base")
+model = whisper.load_model("tiny")
 
 def transcribe_audio(file_path: str):
 
