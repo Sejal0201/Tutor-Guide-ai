@@ -2,7 +2,7 @@
 // import { transcript } from "../data/sessionData";
 import type { TranscriptItem } from "../data/sessionData";
 import Sidebar from "../components/Sidebar";
-
+import {API_URL} from "../services/api";
 import { useState, useRef, useEffect } from "react";
 import {
   generateHint,
@@ -39,7 +39,7 @@ export default function LiveSession() {
     const interval = setInterval(async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/transcript/${sessionId}`,
+          `${API_URL}/transcript/${sessionId}`,
         );
 
         const data = await response.json();
@@ -86,7 +86,7 @@ export default function LiveSession() {
       return null;
     }
     try {
-      const response = await fetch("http://127.0.0.1:8000/session/start", {
+      const response = await fetch("${API_URL}/session/start", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,7 +133,7 @@ export default function LiveSession() {
 
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/transcript/upload",
+            "${API_URL}/transcript/upload",
             {
               method: "POST",
               body: formData,
@@ -146,7 +146,7 @@ export default function LiveSession() {
             setLiveTranscript((prev) => prev + " " + data.transcript);
 
             if (currentSessionId) {
-              await fetch("http://127.0.0.1:8000/session/save-transcript", {
+              await fetch("${API_URL}/session/save-transcript", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -254,7 +254,7 @@ export default function LiveSession() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/session/end/${currentSessionId}`,
+        `${API_URL}/session/end/${currentSessionId}`,
         {
           method: "POST",
         },
@@ -279,7 +279,7 @@ export default function LiveSession() {
     setCoachLoading(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/ai/coach-chat", {
+      const response = await fetch("${API_URL}/ai/coach-chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -308,7 +308,7 @@ export default function LiveSession() {
 
     formData.append("file", file);
 
-    const response = await fetch("http://127.0.0.1:8000/transcript/upload", {
+    const response = await fetch("${API_URL}/transcript/upload", {
       method: "POST",
       body: formData,
     });

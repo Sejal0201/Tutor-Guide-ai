@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
+import { api } from "../services/api";
 export default function Register() {
   const navigate = useNavigate();
 
@@ -14,37 +14,22 @@ export default function Register() {
     try {
       setLoading(true);
 
-      const response = await fetch(
-        "http://127.0.0.1:8000/auth/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            password,
-          }),
-        }
-      );
+      const data = await api.register({
+        name,
+        email,
+        password,
+      });
 
-      const data = await response.json();
+      alert(data.message);
 
-      if (response.ok) {
-        alert("Registration Successful");
-
-        navigate("/login");
-      } else {
-        alert(data.detail);
-      }
-    } catch (error) {
+      navigate("/login");
+    } catch (error: any) {
       console.error(error);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen bg-[#F5F7FB] flex items-center justify-center p-6">
       <div
@@ -64,13 +49,9 @@ export default function Register() {
             <span className="text-white text-2xl font-bold">T</span>
           </div>
 
-          <h1 className="text-4xl font-bold text-slate-900">
-            TutorGuide AI
-          </h1>
+          <h1 className="text-4xl font-bold text-slate-900">TutorGuide AI</h1>
 
-          <p className="text-slate-500 mt-2">
-            Create your account
-          </p>
+          <p className="text-slate-500 mt-2">Create your account</p>
         </div>
 
         <div className="space-y-4">
@@ -78,9 +59,7 @@ export default function Register() {
             type="text"
             placeholder="Full Name"
             value={name}
-            onChange={(e) =>
-              setName(e.target.value)
-            }
+            onChange={(e) => setName(e.target.value)}
             className="
             w-full
             border
@@ -98,9 +77,7 @@ export default function Register() {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
+            onChange={(e) => setEmail(e.target.value)}
             className="
             w-full
             border
@@ -118,9 +95,7 @@ export default function Register() {
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
+            onChange={(e) => setPassword(e.target.value)}
             className="
             w-full
             border
@@ -148,18 +123,13 @@ export default function Register() {
             transition
           "
           >
-            {loading
-              ? "Creating Account..."
-              : "Register"}
+            {loading ? "Creating Account..." : "Register"}
           </button>
         </div>
 
         <p className="text-center text-slate-500 mt-6">
           Already have an account?{" "}
-          <Link
-            to="/login"
-            className="font-semibold text-slate-900"
-          >
+          <Link to="/login" className="font-semibold text-slate-900">
             Login
           </Link>
         </p>

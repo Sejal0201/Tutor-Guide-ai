@@ -12,7 +12,7 @@ export default function Settings() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("http://127.0.0.1:8000/auth/me", {
+    fetch("${API_URL}/auth/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -32,7 +32,7 @@ export default function Settings() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/auth/change-password",
+        "${API_URL}/auth/change-password",
         {
           method: "PUT",
           headers: {

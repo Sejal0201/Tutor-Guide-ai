@@ -2,7 +2,7 @@ import Sidebar from "../components/Sidebar";
 import { Sparkles, Brain, TrendingUp, AlertTriangle } from "lucide-react";
 
 import { useEffect, useState } from "react";
-
+// import {API_URL} from "../services/api";
 // useEffect(() => {
 //   fetch("http://127.0.0.1:8000/insights")
 //     .then((res) => res.json())
@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 export default function Insights() {
   const [insights, setInsights] = useState<any>(null);
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/insights")
+    fetch("${API_URL}/insights")
       .then((res) => res.json())
       .then((data) => setInsights(data))
       .catch(console.error);

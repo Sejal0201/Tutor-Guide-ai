@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import {API_URL} from "../services/api";
 interface SessionItem {
   id: number;
   subject: string;
@@ -27,7 +28,7 @@ export default function Reports() {
   const [reflection, setReflection] = useState<ReflectionData | null>(null);
   const location = useLocation();
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/session/history")
+    fetch("${API_URL}/session/history")
       .then((res) => res.json())
       .then((data) => setSessions(data))
       .catch((err) => console.error(err));
@@ -40,7 +41,7 @@ export default function Reports() {
   const loadReport = async (id: number) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/session/report/${id}`,
+        `${API_URL}/session/report/${id}`,
       );
 
       const reportData = await response.json();
@@ -49,7 +50,7 @@ export default function Reports() {
 
       try {
         const reflectionResponse = await fetch(
-          `http://127.0.0.1:8000/reflection/${id}`,
+          `${API_URL}/reflection/${id}`,
         );
 
         if (reflectionResponse.ok) {
@@ -66,7 +67,7 @@ export default function Reports() {
   };
   const deleteSession = async (id: number) => {
     try {
-      await fetch(`http://127.0.0.1:8000/session/delete/${id}`, {
+      await fetch(`${API_URL}/session/delete/${id}`, {
         method: "DELETE",
       });
 

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 // import { latestSession } from "../data/dashboardData";
 import Sidebar from "../components/Sidebar";
+import {API_URL} from "../services/api";
+
 
 import {
   ArrowRight,
@@ -16,7 +18,7 @@ export default function Dashboard() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("http://127.0.0.1:8000/auth/me", {
+    fetch("${API_URL}/auth/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -28,7 +30,7 @@ export default function Dashboard() {
       .catch((err) => console.error(err));
   }, []);
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/dashboard/stats")
+    fetch("${API_URL}/dashboard/stats")
       .then((res) => res.json())
       .then((data) => setStats(data))
       .catch((err) => console.error(err));
@@ -38,14 +40,14 @@ export default function Dashboard() {
   const [latestSession, setLatestSession] = useState<any>(null);
   const [latestReflection, setLatestReflection] = useState<any>(null);
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/session/history")
+    fetch("${API_URL}/session/history")
       .then((res) => res.json())
       .then((data) => {
         if (data.length > 0) {
           const latest = data[data.length - 1];
           setLatestSession(latest);
           if (latest?.id) {
-            fetch(`http://127.0.0.1:8000/reflection/${latest.id}`)
+            fetch(`${API_URL}/reflection/${latest.id}`)
               .then((res) => res.json())
               .then((reflection) => {
                 setLatestReflection(reflection);
@@ -58,7 +60,7 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/session/history")
+    fetch("${API_URL}/session/history")
       .then((res) => res.json())
       .then((data) => {
         const latest = data.reverse().slice(0, 4);
