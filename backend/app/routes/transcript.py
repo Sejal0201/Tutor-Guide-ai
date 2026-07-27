@@ -58,80 +58,101 @@ def get_transcript(
 
     return transcript
 
+# @router.post("/upload")
+# async def upload_audio(
+#     file: UploadFile = File(...)
+# ):
+
+#     os.makedirs(
+#         "uploads",
+#         exist_ok=True
+#     )
+
+#     file_path = (
+#         f"uploads/{file.filename}"
+#     )
+
+#     with open(
+#         file_path,
+#         "wb"
+#     ) as buffer:
+
+#         buffer.write(
+#             await file.read()
+#         )
+
+#     transcript = (
+#         transcribe_audio(
+#             file_path
+#         )
+#     )
+
+#     return {
+#         "transcript": transcript
+#     }
+
+# @router.post("/from-url")
+# def transcribe_from_url(
+#     data: UrlUploadRequest
+# ):
+#     os.makedirs(
+#         "uploads",
+#         exist_ok=True
+#     )
+
+#     output_file = (
+#         "uploads/video.%(ext)s"
+#     )
+
+#     ydl_opts = {
+#         "outtmpl": output_file,
+#         "format": "best"
+#     }
+
+#     with yt_dlp.YoutubeDL(
+#         ydl_opts
+#     ) as ydl:
+
+#         info = ydl.extract_info(
+#             data.url,
+#             download=True
+#         )
+
+#         downloaded_file = (
+#             ydl.prepare_filename(
+#                 info
+#             )
+#         )
+
+#     transcript = (
+#         transcribe_audio(
+#             downloaded_file
+#         )
+#     )
+
+#     return {
+#         "transcript":
+#         transcript
+#     }   
+
+
 @router.post("/upload")
-async def upload_audio(
-    file: UploadFile = File(...)
-):
+async def upload_audio(file: UploadFile = File(...)):
 
-    os.makedirs(
-        "uploads",
-        exist_ok=True
-    )
+    os.makedirs("uploads", exist_ok=True)
 
-    file_path = (
-        f"uploads/{file.filename}"
-    )
+    file_path = f"uploads/{file.filename}"
 
-    with open(
-        file_path,
-        "wb"
-    ) as buffer:
+    with open(file_path, "wb") as buffer:
+        buffer.write(await file.read())
 
-        buffer.write(
-            await file.read()
-        )
+    print("Saved:", file_path)
+    print("Size:", os.path.getsize(file_path))
 
-    transcript = (
-        transcribe_audio(
-            file_path
-        )
-    )
+    transcript = transcribe_audio(file_path)
+
+    print("Transcript:", transcript)
 
     return {
         "transcript": transcript
-    }
-
-@router.post("/from-url")
-def transcribe_from_url(
-    data: UrlUploadRequest
-):
-    os.makedirs(
-        "uploads",
-        exist_ok=True
-    )
-
-    output_file = (
-        "uploads/video.%(ext)s"
-    )
-
-    ydl_opts = {
-        "outtmpl": output_file,
-        "format": "best"
-    }
-
-    with yt_dlp.YoutubeDL(
-        ydl_opts
-    ) as ydl:
-
-        info = ydl.extract_info(
-            data.url,
-            download=True
-        )
-
-        downloaded_file = (
-            ydl.prepare_filename(
-                info
-            )
-        )
-
-    transcript = (
-        transcribe_audio(
-            downloaded_file
-        )
-    )
-
-    return {
-        "transcript":
-        transcript
     }   
-    

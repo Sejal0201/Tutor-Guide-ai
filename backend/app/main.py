@@ -26,7 +26,7 @@ from app.models.session import Session
 from app.models.transcript import Transcript
 from app.routes.transcript import router as transcript_router
 from app.routes.ai import router as ai_router
-from app.routes.transcription import router as transcription_router
+# from app.routes.transcription import router as transcription_router
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes.export import router as export_router
 from app.routes.reflection import router as reflection_router
@@ -42,9 +42,9 @@ app.include_router(insights_router)
 app.include_router(dashboard.router)
 app.include_router(export_router)
 app.include_router(reflection_router)
-app.include_router(
-    transcription_router
-)
+# app.include_router(
+    # transcription_router
+# )
 app.include_router(session_router)
 app.include_router(ai_router)
 app.include_router(transcript_router)
