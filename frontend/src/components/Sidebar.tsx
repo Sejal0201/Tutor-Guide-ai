@@ -9,13 +9,14 @@ import {
 
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_URL } from "../services/api";
 
 export default function Sidebar() {
   const [user, setUser] = useState<any>(null);
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("${API_URL}/auth/me", {
+    fetch(`${API_URL}/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -1,6 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import { User, Brain, Shield, Download, LogOut } from "lucide-react";
 import { useEffect, useState } from "react";
+import { API_URL } from "../services/api";
 
 export default function Settings() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -12,7 +13,7 @@ export default function Settings() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("${API_URL}/auth/me", {
+    fetch(`${API_URL}/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
