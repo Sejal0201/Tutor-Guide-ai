@@ -86,7 +86,7 @@ export default function LiveSession() {
       return null;
     }
     try {
-      const response = await fetch("${API_URL}/session/start", {
+      const response = await fetch(`${API_URL}/session/start`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,7 +133,7 @@ export default function LiveSession() {
 
         try {
           const response = await fetch(
-            "${API_URL}/transcript/upload",
+            `${API_URL}/transcript/upload`,
             {
               method: "POST",
               body: formData,
@@ -146,7 +146,7 @@ export default function LiveSession() {
             setLiveTranscript((prev) => prev + " " + data.transcript);
 
             if (currentSessionId) {
-              await fetch("${API_URL}/session/save-transcript", {
+              await fetch(`${API_URL}/session/save-transcript`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -279,7 +279,7 @@ export default function LiveSession() {
     setCoachLoading(true);
 
     try {
-      const response = await fetch("${API_URL}/ai/coach-chat", {
+      const response = await fetch(`${API_URL}/ai/coach-chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -308,7 +308,7 @@ export default function LiveSession() {
 
     formData.append("file", file);
 
-    const response = await fetch("${API_URL}/transcript/upload", {
+    const response = await fetch(`${API_URL}/transcript/upload`, {
       method: "POST",
       body: formData,
     });
