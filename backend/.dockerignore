@@ -1,0 +1,10 @@
+venv
+__pycache__
+*.pyc
+uploads
+node_modules
+.git
+.gitignore
+tutorguide.db
+session_*.pdf
+.env
